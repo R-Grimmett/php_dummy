@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$observation_card = '<div class="card">
+$observation_card = '<div class="card mb-3">
                         <div class="row g-2">
                             <div class="card-body col-8">
                                 <h5 class="card-title">Observation Title</h5>
@@ -26,8 +26,9 @@ function displayObservations(): void
 {
     global $observation_card;
     global $observation_none;
-    if (isset($_SESSION['observationCount'])) {
-        $count = $_SESSION['observationCount'];
+
+    if (isset($_SESSION['data_variables']['observation_count']) && !isset($_SESSION['error_variables']['invalidCount'])) {
+        $count = (int)$_SESSION['data_variables']['observation_count'];
         if ($count > 0) {
             for ($i = 0; $i < $count; $i++) {
                 echo $observation_card;
