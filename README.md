@@ -4,3 +4,10 @@ This is primarily for testing the communication between the Python ML and the An
 <h2>Requirements</h2>
 
 - PHP version 7.1 or higher
+
+<h2>Session Variables</h2>
+
+| Variable Name | Description |
+|--|--|
+| data_variables | **Array.** Stores the data from the variables form at the top of index.php |
+| error_variables | **Array.** Errors relating to the variables form at the top of index.php |

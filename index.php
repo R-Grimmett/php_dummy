@@ -1,6 +1,9 @@
 <?php
+require_once 'controller/session_config.php';
 require_once 'view/variable.php';
+require_once 'view/observation.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,13 +22,18 @@ require_once 'view/variable.php';
 </head>
 
 <body>
-
+<?php
+print_r($_SESSION);
+?>
 <div class="container-fluid">
     <div class="row mt-5 mb-3">
 
     </div>
     <div class="row mb-3 g-3">
         <h2>Variable Setup</h2>
+        <?php
+        checkVariableErrors();
+        ?>
         <form action="controller/variable_store.php" method="post">
             <?php
             variableInput();
@@ -43,21 +51,9 @@ require_once 'view/variable.php';
             </div>
             <div class="col-8">
                 <h3>Observations</h3>
-                <div class="card">
-                    <div class="row g-2">
-                        <div class="card-body col-8">
-                            <h5 class="card-title">Observation Title</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam libero
-                                lacus, congue ut fermentum quis, gravida in nulla. Suspendisse sollicitudin nisl sed quam
-                                cursus aliquam. Duis eget feugiat ante. Curabitur euismod ante orci, et ornare nunc commodo
-                                eu. Aliquam sed faucibus eros. Pellentesque non ipsum quam.</p>
-                        </div>
-                        <div class="card-body col-4">
-                            <h5 class="card-subtitle">Themes</h5>
-                            <h5 class="card-subtitle">Tags</h5>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                displayObservations();
+                ?>
             </div>
         </div>
     </div>
