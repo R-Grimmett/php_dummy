@@ -20,7 +20,7 @@ function isInputEmpty(string $python_url, string $observation_count) : bool {
  * @param int $observation_count
  * @return bool Returns true if $observation_count is greater than 0, otherwise returns false.
  */
-function isCountValid(int $observation_count) : bool {
+function isNumberValid(int $observation_count) : bool {
     if($observation_count > 0){
         return true;
     }
