@@ -21,6 +21,9 @@ $observation_none = '<div class="alert alert-primary mt-5" role="alert">
                         Set the Observation Count in Variable Setup to generate placeholder observations.
                     </div>';
 
+/**
+ * Generates a number of placeholder observations based on the number stored in $_SESSION['data_variables']['observation_count'].
+ */
 function displayObservations(): void
 {
     global $observation_card_1, $observation_card_2, $observation_none;
@@ -40,22 +43,25 @@ function displayObservations(): void
 function displayObservationControls(): void
 {
     echo '<div class="col">
-            <button type="submit" class="btn btn-primary" formaction="#">
+            <button type="submit" class="btn btn-primary" formaction="controller/observation/generate_tag.php">
                 Generate AI Tags
             </button>
-          </div>
-          <div class="col">
-            <button type="submit" class="btn btn-info" formaction="#">
+          </div>';
+
+    echo '<div class="col">
+            <button type="submit" class="btn btn-info" formaction="controller/observation/increment_observation_count.php">
                 Add Observation
             </button>
-          </div>
-          <div class="col">
-            <button type="submit" class="btn btn-warning" formaction="#">
+          </div>';
+
+    echo '<div class="col">
+            <button type="submit" class="btn btn-warning" formaction="controller/observation/remove_tag.php">
                 Remove all tags
             </button>
-          </div>
-          <div class="col">
-            <button type="submit" class="btn btn-danger" formaction="#">
+          </div>';
+
+    echo '<div class="col">
+            <button type="submit" class="btn btn-danger" formaction="controller/observation/remove_observation.php">
                 Remove all observations
             </button>
           </div>';

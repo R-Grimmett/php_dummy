@@ -23,15 +23,27 @@ require_once 'view/observation.php';
 
 <body>
 <main>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row mt-5 mb-3">
-
+            <h1>PHP Placeholder</h1>
+            <p>This is purely to test communication between a python script and a PHP based website, based on the page
+                that we are implementing the ML model on.</p>
+            <?php
+            if (isset($_SESSION["data_testing"])) {
+                echo '<div class="alert alert-primary" role="alert"><p>DEBUG INFORMATION:</p>';
+                print_r($_SESSION["data_testing"]);
+                unset($_SESSION["data_testing"]);
+                echo '<br>';
+                print_r($_SESSION["data_variables"]);
+                echo '</div>';
+            }
+            ?>
         </div>
         <div class="row mb-3 g-3">
             <h2>Analysis & Observations</h2>
             <div class="row">
                 <div class="col-4">
-                    <h2>Variable Setup</h2>
+                    <h3>Variable Setup</h3>
                     <?php
                     checkVariableErrors();
                     ?>
@@ -49,7 +61,9 @@ require_once 'view/observation.php';
                     <form method="post" class="container text-center">
                         <div class="row row-cols-4 g-3 mb-3">
                             <?php
-                            displayObservationControls();
+                            if (isset($_SESSION['data_variables']['observation_count'])) {
+                                displayObservationControls();
+                            }
                             ?>
                         </div>
                     </form>
