@@ -29,8 +29,8 @@ class Tag
         return $this->name;
     }
 
-    public function render(): void
+    public function render(): string
     {
-        echo '<div class="col"><button type="button" class="btn btn-info">' . $this->name . '</button></div>';
+        return '<div class="col"><button type="button" class="btn btn-info">' . $this->name . '</button></div>';
     }
 }

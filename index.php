@@ -2,7 +2,6 @@
 require_once 'controller/session_config.php';
 require_once 'view/variable.php';
 require_once 'view/observation.php';
-require 'model/Tag.php';
 ?>
 
 <!DOCTYPE html>
