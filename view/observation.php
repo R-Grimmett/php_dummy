@@ -11,8 +11,12 @@ $observation_card_2 = 'Observation Title</h5>
                                     eu. Aliquam sed faucibus eros. Pellentesque non ipsum quam.</p>
                             </div>
                             <div class="card-body col-4">
-                                <h5 class="card-subtitle">Themes</h5>
-                                <h5 class="card-subtitle">Tags</h5>
+                                <div class="row mb-3">
+                                    <h5 class="card-subtitle">Themes</h5>
+                                </div>                               
+                                <div class="row mb-3">
+                                    <h5 class="card-subtitle">Tags</h5>
+                                </div>
                             </div>
                         </div>
                     </div>';

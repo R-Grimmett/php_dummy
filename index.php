@@ -2,6 +2,7 @@
 require_once 'controller/session_config.php';
 require_once 'view/variable.php';
 require_once 'view/observation.php';
+require 'model/Tag.php';
 ?>
 
 <!DOCTYPE html>
@@ -30,10 +31,10 @@ require_once 'view/observation.php';
                 that we are implementing the ML model on.</p>
             <?php
             if (isset($_SESSION["data_testing"])) {
-                echo '<div class="alert alert-primary" role="alert"><p>DEBUG INFORMATION:</p>';
+                echo '<div class="alert alert-primary" role="alert"><p>DEBUG INFORMATION:</p><p>Testing Data:</p>';
                 print_r($_SESSION["data_testing"]);
                 unset($_SESSION["data_testing"]);
-                echo '<br>';
+                echo '<br><br><p>Variable Data:</p>';
                 print_r($_SESSION["data_variables"]);
                 echo '</div>';
             }
@@ -59,7 +60,7 @@ require_once 'view/observation.php';
                 <div class="col-8">
                     <h3>Observations</h3>
                     <form method="post" class="container text-center">
-                        <div class="row row-cols-4 g-3 mb-3">
+                        <div class="row row-cols-4 g-3 mb-3 align-items-center">
                             <?php
                             if (isset($_SESSION['data_variables']['observation_count'])) {
                                 displayObservationControls();
