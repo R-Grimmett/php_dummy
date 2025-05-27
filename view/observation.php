@@ -43,6 +43,7 @@ function displayObservations(): void
             }
         }
 
+        unset($_SESSION['data_variables']['observations']);
         $_SESSION['data_variables']['observations'] = $observations;
 
         foreach ($observations as $observation) {
