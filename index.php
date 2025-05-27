@@ -33,9 +33,6 @@ require_once 'view/observation.php';
                 echo '<div class="alert alert-primary" role="alert"><p>DEBUG INFORMATION:</p><p>Testing Data:</p>';
                 print_r($_SESSION["data_testing"]);
                 unset($_SESSION["data_testing"]);
-                echo '<br><br><p>Variable Data:</p>';
-                print_r($_SESSION["data_variables"]);
-                echo '</div>';
             }
             ?>
         </div>

@@ -24,30 +24,20 @@ function displayObservations(): void
     if (isset($_SESSION['data_variables']['observation_count']) && !isset($_SESSION['error_variables']['invalidCount'])) {
         $count = (int)$_SESSION['data_variables']['observation_count'];
         $init_id = (int)$_SESSION['data_variables']['observation_id'];
-        $start = 0;
         $observations = [];
 
-//        Fetch existing observations
-        if(isset($_SESSION['data_variables']['observations'])) {
-            $observations = $_SESSION['data_variables']['observations'];
-            if(count($observations) != $count) {
-                $start = count($observations);
-            }
-        }
-
+//      TODO: Save the tags from the current observations
 //      Generate new observations if required
-        if ($count > $start) {
-            for ($i = $start; $i < $count; $i++) {
-                $new_observation = new Observation($i + $init_id, $name_placeholder, $data_placeholder, []);
-                array_push($observations, $new_observation->store());
-            }
+        for ($i = 0; $i < $count; $i++) {
+            $new_observation = new Observation($i + $init_id, $name_placeholder, $data_placeholder, []);
+            array_push($observations, $new_observation->store());
         }
 
         unset($_SESSION['data_variables']['observations']);
         $_SESSION['data_variables']['observations'] = $observations;
 
         foreach ($observations as $observation) {
-            if(empty($observation['tags'])) {
+            if (empty($observation['tags'])) {
                 $observation['tags'] = [];
             }
             $current = new Observation($observation['id'], $observation['name'], $observation['data'], $observation['tags']);
