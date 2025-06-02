@@ -138,7 +138,9 @@ function fetchTagString(int $id): string {
 //TODO: Implement random names + data instead of just lorem ipsum.
 function generateObservations(): void
 {
-    createObservation("", "");
+    require_once "observation_data.php";
+    $random_observation = randomObservation();
+    createObservation($random_observation['title'], $random_observation['text']);
 }
 
 /**
