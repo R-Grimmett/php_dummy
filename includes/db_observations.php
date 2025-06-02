@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once "db_init.php";
+require "db_init.php";
 
 $dsn = 'mysql:host=localhost;dbname=phpplaceholder';
 $dbusername = 'root';
@@ -47,12 +47,30 @@ function createObservation(string $name, string $data): void
 
         $stmt->execute();
 
-        $pdo = null;
-        $stmt = null;
-
     } catch (PDOException $e) {
         echo 'Unable to create observation: ' . $e->getMessage();
     }
+}
+
+function fetchObservations(): ?array
+{
+    global $pdo;
+
+    try {
+        $query = "SELECT * FROM observations";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    catch (PDOException $e) {
+        echo 'Unable to fetch observations: ' . $e->getMessage();
+    }
+    return null;
+}
+
+function generateObservations(): void
+{
+    createObservation("", "");
 }
 
 function truncateObservations(): void
