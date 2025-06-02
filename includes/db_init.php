@@ -16,15 +16,13 @@ try {
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(30) NOT NULL,
                 data TEXT NOT NULL,
-                tags VARCHAR(255) NOT NULL)";
+                tags VARCHAR(255))";
 
     $stmt = $pdo->prepare($query);
     $stmt->execute();
 
     $pdo = null;
     $stmt = null;
-
-    die();
 } catch (PDOException $e) {
 
 }

@@ -3,7 +3,7 @@
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
-        require_once "dbh.inc.php";
+        require_once "db_init.php";
 
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();

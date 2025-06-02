@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors["invalidID"] = "All IDs should be a number greater than 0.";
     }
 
-    require_once "session_init.php";
+    require_once "../includes/session_init.php";
 
     $data = [
         "python_url" => $python_url,

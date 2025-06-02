@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require "model/Observation.php";
+require_once "includes/db_init.php";
 
 $name_placeholder = "Observation Name";
 
@@ -23,26 +23,8 @@ function displayObservations(): void
 
     if (isset($_SESSION['data_variables']['observation_count']) && !isset($_SESSION['error_variables']['invalidCount'])) {
         $count = (int)$_SESSION['data_variables']['observation_count'];
-        $init_id = (int)$_SESSION['data_variables']['observation_id'];
-        $observations = [];
 
-//      TODO: Save the tags from the current observations
-//      Generate new observations if required
-        for ($i = 0; $i < $count; $i++) {
-            $new_observation = new Observation($i + $init_id, $name_placeholder, $data_placeholder, []);
-            array_push($observations, $new_observation->store());
-        }
-
-        unset($_SESSION['data_variables']['observations']);
-        $_SESSION['data_variables']['observations'] = $observations;
-
-        foreach ($observations as $observation) {
-            if (empty($observation['tags'])) {
-                $observation['tags'] = [];
-            }
-            $current = new Observation($observation['id'], $observation['name'], $observation['data'], $observation['tags']);
-            $current->render();
-        }
+        createObservation($name_placeholder, $data_placeholder);
 
     } else {
         echo $observation_none;
@@ -70,8 +52,36 @@ function displayObservationControls(): void
           </div>';
 
     echo '<div class="col">
-            <button type="submit" class="btn btn-danger" formaction="controller/observation/remove_observation.php">
+            <button type="submit" class="btn btn-danger" formaction="includes/observation/remove_observation.php">
                 Remove all observations
             </button>
           </div>';
+}
+
+function createObservation(string $name, string $data): void {
+    try {
+        require_once "includes/db_init.php";
+//        require_once "includes/dbh.inc.php";
+
+        $dsn = 'mysql:host=localhost;dbname=phpplaceholder';
+        $dbusername = 'root';
+        $dbpassword = '';
+
+        $pdo = new PDO($dsn, $dbusername, $dbpassword);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $query = "INSERT INTO observations (name, data) VALUES (:name, :data)";
+
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':data', $data);
+
+        $stmt->execute();
+
+        $pdo = null;
+        $stmt = null;
+
+    } catch (PDOException $e) {
+        echo 'Unable to create observation: ' . $e->getMessage();
+    }
 }
