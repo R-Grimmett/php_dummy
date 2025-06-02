@@ -37,7 +37,6 @@ function assignTag(int $observation_id, int $tag_group_id, int $tag_id) {
         $stmt->bindParam(':id', $observation_id);
         $stmt->execute();
         $observation = $stmt->fetch(PDO::FETCH_ASSOC);
-        echo print_r($observation);
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();
     }
