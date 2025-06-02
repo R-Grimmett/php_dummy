@@ -36,7 +36,7 @@ function variableInput(): void
     }
 
 //    OBSERVATION ID
-    echo '</div><div class="mb-3"><label for="observation_id" class="form-label">Initial Observation ID:</label>"';
+    echo '</div><div class="mb-3"><label for="observation_id" class="form-label">Initial Observation ID:</label>';
     if (isset($_SESSION["data_variables"]["observation_id"]) && !isset($_SESSION["error_variables"]["invalidID"])) {
         echo '<input class="form-control" type="number" name="observation_id" id="observation_id" placeholder="Observation ID" value="'
             . $_SESSION["data_variables"]["observation_id"] . '">';

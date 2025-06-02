@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require_once "../session_config.php";
+    require_once "../session_init.php";
     $testing = [
         "generate" => "Generating placeholder tags..."
     ];
