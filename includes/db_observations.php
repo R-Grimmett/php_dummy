@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-//require "db_init.php";
+require_once "db_init.php";
 require "db_tags.php";
 
 $dsn = 'mysql:host=localhost;dbname=phpplaceholder';
@@ -22,10 +22,10 @@ $data_placeholder = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Al
     euismod ante orci, et ornare nunc commodo eu. Aliquam sed faucibus eros. Pellentesque non ipsum quam.';
 
 /**
+ * Assigns a tag to an observation by appending the tags string of that observation.
  * @param int $observation_id The int ID of the observation in the database
  * @param int $tag_group_id The tag group ID
  * @param int $tag_id The tag ID
- * @return void
  */
 function assignTag(int $observation_id, int $tag_group_id, int $tag_id) {
     global $pdo;
@@ -57,6 +57,11 @@ function assignTag(int $observation_id, int $tag_group_id, int $tag_id) {
     }
 }
 
+/**
+ * Creates and inserts a new observation to the database.
+ * @param string $name The name of the observation to add. If left blank will default to "Observation Name".
+ * @param string $data The data of the observation to add. If left blank will default to Lorem Ipsum.
+ */
 function createObservation(string $name, string $data): void
 {
     global $pdo, $name_placeholder, $data_placeholder;
@@ -105,6 +110,11 @@ function fetchObservations(): ?array
     return null;
 }
 
+/**
+ * Creates and returns a string containing formatted html tags to display on an observation.
+ * @param int $id The ID of the observation to generate the string for.
+ * @return string HTML formatted string to be displayed.
+ */
 function fetchTagString(int $id): string {
     global $pdo;
     $result = "";
@@ -130,6 +140,26 @@ function fetchTagString(int $id): string {
 function generateObservations(): void
 {
     createObservation("", "");
+}
+
+/**
+ * Removes all data in the 'tags' column of the 'observations' table by dropping and re-adding the column.
+ */
+function removeTags(): void {
+    global $pdo;
+
+    try {
+        $query = "ALTER TABLE observations DROP COLUMN tags";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+        $query = "ALTER TABLE observations ADD tags VARCHAR(255)";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+    }
 }
 
 /**

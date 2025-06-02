@@ -1,8 +1,12 @@
 <?php
 
-global $pdo;
+$dsn = 'mysql:host=localhost;dbname=phpplaceholder';
+$dbusername = 'root';
+$dbpassword = '';
+
 try {
-    require_once "dbh.inc.php";
+    $pdo = new PDO($dsn, $dbusername, $dbpassword);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $query = "CREATE TABLE IF NOT EXISTS tags (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
