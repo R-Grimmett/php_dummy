@@ -1,5 +1,5 @@
 <?php
-require_once 'controller/session_config.php';
+require_once 'includes/session_init.php';
 require_once 'view/variable.php';
 require_once 'view/observation.php';
 ?>

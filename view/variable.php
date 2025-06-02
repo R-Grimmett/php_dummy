@@ -35,15 +35,6 @@ function variableInput(): void
         echo '<input class="form-control" type="number" name="observation_count" id="observation_count" placeholder="Observation Count" value="">';
     }
 
-//    OBSERVATION ID
-    echo '</div><div class="mb-3"><label for="observation_id" class="form-label">Initial Observation ID:</label>"';
-    if (isset($_SESSION["data_variables"]["observation_id"]) && !isset($_SESSION["error_variables"]["invalidID"])) {
-        echo '<input class="form-control" type="number" name="observation_id" id="observation_id" placeholder="Observation ID" value="'
-            . $_SESSION["data_variables"]["observation_id"] . '">';
-    } else {
-        echo '<input class="form-control" type="number" name="observation_id" id="observation_id" placeholder="Observation ID" value="">';
-    }
-
 //    TAG GROUP ID
     echo '</div><div class="mb-3"><label for="tag_group_id" class="form-label">Tag Group ID:</label>';
     if (isset($_SESSION["data_variables"]["tag_group_id"]) && !isset($_SESSION["error_variables"]["invalidID"])) {
@@ -51,15 +42,6 @@ function variableInput(): void
             . $_SESSION["data_variables"]["tag_group_id"] . '">';
     } else {
         echo '<input class="form-control" type="number" name="tag_group_id" id="tag_group_id" placeholder="Tag Group ID" value="">';
-    }
-
-//    TAG ID
-    echo '</div><div class="mb-3"><label for="tag_id" class="form-label">Tag ID:</label>';
-    if (isset($_SESSION["data_variables"]["tag_id"]) && !isset($_SESSION["error_variables"]["invalidID"])) {
-        echo '<input class="form-control" type="number" name="tag_id" id="tag_id" placeholder="Tag ID" value="'
-            . $_SESSION["data_variables"]["tag_id"] . '">';
-    } else {
-        echo '<input class="form-control" type="number" name="tag_id" id="tag_id" placeholder="Tag ID" value="">';
     }
     echo '</div>';
 

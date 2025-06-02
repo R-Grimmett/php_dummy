@@ -2,46 +2,23 @@
 
 declare(strict_types=1);
 
-require "model/Observation.php";
-
-$name_placeholder = "Observation Name";
-
-$data_placeholder = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam libero lacus, congue ut fermentum 
-    quis, gravida in nulla. Suspendisse sollicitudin nisl sed quam cursus aliquam. Duis eget feugiat ante. Curabitur 
-    euismod ante orci, et ornare nunc commodo eu. Aliquam sed faucibus eros. Pellentesque non ipsum quam.';
+require "includes/db_observations.php";
 
 $observation_none = '<div class="alert alert-primary mt-5" role="alert">
                         Set the Observation Count in Variable Setup to generate placeholder observations.
                     </div>';
 
-/**
- * Generates a number of placeholder observations based on the number stored in $_SESSION['data_variables']['observation_count'].
- */
 function displayObservations(): void
 {
-    global $name_placeholder, $data_placeholder, $observation_none;
+    global $observation_none;
 
     if (isset($_SESSION['data_variables']['observation_count']) && !isset($_SESSION['error_variables']['invalidCount'])) {
-        $count = (int)$_SESSION['data_variables']['observation_count'];
-        $init_id = (int)$_SESSION['data_variables']['observation_id'];
-        $observations = [];
-
-//      TODO: Save the tags from the current observations
-//      Generate new observations if required
-        for ($i = 0; $i < $count; $i++) {
-            $new_observation = new Observation($i + $init_id, $name_placeholder, $data_placeholder, []);
-            array_push($observations, $new_observation->store());
-        }
-
-        unset($_SESSION['data_variables']['observations']);
-        $_SESSION['data_variables']['observations'] = $observations;
-
+        $observations = fetchObservations();
         foreach ($observations as $observation) {
-            if (empty($observation['tags'])) {
-                $observation['tags'] = [];
-            }
-            $current = new Observation($observation['id'], $observation['name'], $observation['data'], $observation['tags']);
-            $current->render();
+            echo '<div class="card mb-3"><div class="row g-2"><div class="card-body col-8"><h5 class="card-title">'
+                . $observation['id'] . ' | ' . $observation['name'] . '</h5><p class="card-text">' . $observation['data'] .
+                '</p></div><div class="card-body col-4"><div class="row mb-3"><h5 class="card-subtitle">Themes</h5></div>' .
+                '<div class="row mb-3"><h5 class="card-subtitle">Tags</h5>' . fetchTagString((int)$observation['id']) . '</div></div></div></div>';
         }
 
     } else {
@@ -52,26 +29,27 @@ function displayObservations(): void
 function displayObservationControls(): void
 {
     echo '<div class="col">
-            <button type="submit" class="btn btn-primary" formaction="controller/observation/generate_tag.php">
+            <button type="submit" class="btn btn-primary" formaction="includes/observation/generate_tag.php">
                 Generate AI Tags
             </button>
           </div>';
 
     echo '<div class="col">
-            <button type="submit" class="btn btn-info" formaction="controller/observation/increment_observation_count.php">
+            <button type="submit" class="btn btn-info" formaction="includes/observation/increment_observation_count.php">
                 Add Observation
             </button>
           </div>';
 
     echo '<div class="col">
-            <button type="submit" class="btn btn-warning" formaction="controller/observation/remove_tag.php">
+            <button type="submit" class="btn btn-warning" formaction="includes/observation/remove_tag.php">
                 Remove all tags
             </button>
           </div>';
 
     echo '<div class="col">
-            <button type="submit" class="btn btn-danger" formaction="controller/observation/remove_observation.php">
+            <button type="submit" class="btn btn-danger" formaction="includes/observation/remove_observation.php">
                 Remove all observations
             </button>
           </div>';
 }
+
