@@ -79,7 +79,7 @@ function printTag(string $tag): string
         echo 'Error: ' . $e->getMessage();
     }
     if ($query_result != null) {
-        $result = '<button type="button" class="btn btn-primary">' . $query_result["tag_name"] . '</button>';
+        $result = '<button type="button" class="btn btn-primary btn-sm">' . $query_result["tag_name"] . '</button>';
     }
     return $result;
 }
