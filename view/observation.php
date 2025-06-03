@@ -18,7 +18,8 @@ function displayObservations(): void
             echo '<div class="card mb-3"><div class="row g-2"><div class="card-body col-8"><h5 class="card-title">'
                 . $observation['id'] . ' | ' . $observation['name'] . '</h5><p class="card-text">' . $observation['data'] .
                 '</p></div><div class="card-body col-4"><div class="row mb-3"><h5 class="card-subtitle">Themes</h5></div>' .
-                '<div class="row mb-3"><h5 class="card-subtitle">Tags</h5>' . fetchTagString((int)$observation['id']) . '</div></div></div></div>';
+                '<div class="row mb-3"><h5 class="card-subtitle">Tags</h5></div><div class="row row-cols-2 mb-3">' .
+                fetchTagString((int)$observation['id']) . '</div></div></div></div>';
         }
 
     } else {

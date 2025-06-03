@@ -13,6 +13,11 @@ try {
     echo 'Connection failed: ' . $e->getMessage();
 }
 
+/**
+ * Creates a new tag from a provided group ID and name and inserts it into the 'tags' table in the connected database.
+ * @param int $group_id Int representing the ID of the tag's group, should match $_SESSION['data_variables']['tag_group_id']
+ * @param string $tag_name The name of the string, i.e. the text that is displayed when the tag is displayed.
+ */
 function createTag(int $group_id, string $tag_name): void
 {
     global $pdo;
@@ -57,6 +62,11 @@ function fetchTag(int $group_id, string $name): array
     return $result;
 }
 
+/**
+ * Fetches the name of a tag string and returns a html formatted string to display the tag on the observation in the browser.
+ * @param string $tag The tag string as it would be stored in the observations database. (group_id:tag_id)
+ * @return string A HTML formatted string for the specified tag.
+ */
 function printTag(string $tag): string
 {
     $tagData = explode(":", $tag);
@@ -79,7 +89,7 @@ function printTag(string $tag): string
         echo 'Error: ' . $e->getMessage();
     }
     if ($query_result != null) {
-        $result = '<button type="button" class="btn btn-primary btn-sm">' . $query_result["tag_name"] . '</button>';
+        $result = '<div class="col"><button type="button" class="btn btn-primary btn-sm m-1">' . $query_result["tag_name"] . '</button></div>';
     }
     return $result;
 }
