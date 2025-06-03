@@ -8,24 +8,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once "../db_observations.php";
     require_once "../db_tags.php";
 
-    $tag_name = "testing tag";
     $testing = [];
 
-
-//    Generate tag if it doesn't exist
-
-
-//  Fetch all observations
+//  -- Fetch all observations --
     $observations = fetchObservations();
 
-    $ch = curl_init('https://dafryingpan.pythonanywhere.com/generate');
+//  -- Setup cURL to communicate with the python --
+
+    $ch = curl_init($_SESSION['data_variables']['python_url']);
+
+//    If the session variables break, uncomment the following line:
+//    $ch = curl_init('https://dafryingpan.pythonanywhere.com/generate');
+
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/x-www-form-urlencoded'
     ]);
 
-//    Assign the tag to each observation
+//  -- Send each observation through as a seperate request to the python and assign tags accordingly. --
     foreach ($observations as $observation) {
         $postData = http_build_query([
             'observations' => $observation['data']
@@ -46,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $returned = 'unknown response';
             }
         }
-        //
     }
     curl_close($ch);
 
