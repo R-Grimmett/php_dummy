@@ -4,8 +4,9 @@ This is primarily for testing the communication between the Python ML and the An
 <h2>Requirements</h2>
 
 - PHP version 7.1 or higher
+- MySQL
 
-<h2>Session Variables</h2>
+<h2>Important Session Variables</h2>
 
 | Variable Name       | Type      | Description                                                       |
 |---------------------|-----------|-------------------------------------------------------------------|
@@ -19,9 +20,7 @@ This is primarily for testing the communication between the Python ML and the An
 |---------------------|------------|-------------------------------------------------------------------------------------------------------------------------|
 | `python_url`        | **String** | The url for the python module to attempt to communicate with.                                                           |
 | `observation_count` | **String** | The number of placeholder observations to generate. Is stored as a string, but should be able to be cast to an **Int**. |
-| `observation_id`    | **String** | The ID of the placeholder observations. Is stored as a string, but should be able to be cast to an **Int**.             |
 | `tag_group_id`      | **String** | The ID of the placeholder generated tag group. Is stored as a string, but should be able to be cast to an **Int**.      |
-| `tag_id`            | **String** | The ID of the placeholder generated tags. Is stored as a string, but should be able to be cast to an **Int**.           |                                                                                              
 
 <h3>Members of `error_variables` Array</h3>
 These variables are only set if their associated error is present in the submitted form.
